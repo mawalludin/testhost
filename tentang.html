@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang - Kalkulus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            position: relative;
+            overflow-x: hidden;
+            color: white;
+        }
+
+        /* Space background with stars */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, #ddd, transparent),
+                radial-gradient(1px 1px at 200px 90px, #fff, transparent),
+                radial-gradient(2px 2px at 240px 50px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 280px 10px, #eee, transparent),
+                radial-gradient(1px 1px at 320px 70px, #fff, transparent),
+                radial-gradient(2px 2px at 360px 40px, rgba(255,255,255,0.9), transparent);
+            background-repeat: repeat;
+            background-size: 400px 200px;
+            animation: sparkle 20s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes sparkle {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-200px); }
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: float linear infinite;
+            z-index: 2;
+        }
+
+        @keyframes float {
+            0% { 
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Glowing orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.3) 0%, transparent 70%);
+            animation: drift linear infinite;
+            z-index: 2;
+        }
+
+        @keyframes drift {
+            0% { transform: translateX(-100px) translateY(0) scale(0.5); }
+            50% { transform: translateX(50vw) translateY(-50px) scale(1); }
+            100% { transform: translateX(100vw) translateY(0) scale(0.5); }
+        }
+
+        /* Main content */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 90%;
+            max-width: 1200px;
+            padding: 2rem 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #fff, #667eea, #764ba2);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes textGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        button {
+            font-size: 1.5rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 0 20px rgba(102, 126, 234, 0.3),
+                0 0 40px rgba(118, 75, 162, 0.2);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 0 30px rgba(102, 126, 234, 0.5),
+                0 0 60px rgba(118, 75, 162, 0.3);
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #fff;
+            opacity: 0.85;
+            letter-spacing: 1.5px;
+        }
+        
+        .main-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .main-links a {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.07);
+            box-shadow: 0 2px 12px 0 rgba(255,255,255,0.05);
+            transition: background 0.2s, transform 0.2s;
+        }
+        
+        .main-links a:hover {
+            background: rgba(255,255,255,0.18);
+            transform: scale(1.08) translateY(-2px);
+        }
+        
+        .main-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 18px;
+            box-shadow: 0 4px 32px 0 rgba(255,255,255,0.07);
+            padding: 1.5rem 1.2rem;
+            width: 300px;
+            color: #fff;
+            text-align: left;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1.5px solid rgba(255,255,255,0.10);
+        }
+        
+        .card:hover {
+            transform: translateY(-8px) scale(1.04);
+            box-shadow: 0 8px 40px 0 #fffbe044;
+            background: rgba(255,255,255,0.13);
+        }
+        
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 0.7rem;
+            color: #fffbe0;
+        }
+        
+        .card p {
+            font-size: 1rem;
+            color: #eee;
+            opacity: 0.9;
+            flex-grow: 1;
+        }
+        
+        /* Container untuk mengelompokkan 3 card per baris */
+        .card-row {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+        
+        /* NEW: About specific styles */
+        .about-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .about-card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 18px;
+            box-shadow: 0 4px 32px 0 rgba(255,255,255,0.07);
+            padding: 2rem;
+            width: 100%;
+            max-width: 800px;
+            color: #fff;
+            text-align: left;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1.5px solid rgba(255,255,255,0.10);
+        }
+        
+        
+        .team-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .team-member {
+            background: rgba(255,255,255,0.08);
+            border-radius: 15px;
+            padding: 1.5rem;
+            width: 200px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.12);
+        }
+        
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover;
+            border: 3px solid rgba(102, 126, 234, 0.5);
+        }
+        
+        .team-member h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #fffbe0;
+        }
+        
+        .team-member p {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+        
+        .features-list li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .features-list li i {
+            color: #667eea;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .contact-item i {
+            width: 20px;
+            color: #667eea;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 1100px) {
+            .card-row {
+                flex-wrap: wrap;
+            }
+            
+            .card {
+                width: calc(50% - 1rem);
+                max-width: 350px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .main-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .card {
+                padding: 1.2rem 1rem;
+            }
+            
+            .team-member {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>TENTANG KAMI</h1>
+        <p class="subtitle">Mengenal lebih dekat tentang platform belajar kalkulus kami</p>
+        <div class="main-links">
+            <a href="main.html">Beranda</a>
+            <a href="materi.html">Materi</a>
+            <a href="mainquiz.html">Quiz</a>
+            <a href="#tentang">Tentang</a>
+        </div>
+        
+        <div class="about-container">
+            <!-- Tentang Website -->
+            <div class="about-card">
+                <h2><i class="fas fa-rocket"></i> Tentang Kalkulus WEB</h2>
+                <br>
+                <p>KalkulusWeb adalah platform pembelajaran kalkulus yang dirancang untuk membuat belajar matematika menjadi lebih menyenangkan dan mudah dipahami. Kami percaya bahwa setiap orang dapat menguasai kalkulus dengan pendekatan yang tepat dan materi yang disajikan dengan baik.</p>
+                <br>
+                <p>Platform ini dikembangkan untuk memenuhi tugas besar mata kuliah kalkulus.</p>
+            </div>
+            
+            
+            <!-- Fitur -->
+            <div class="about-card">
+                <h2><i class="fas fa-star"></i> Fitur Utama</h2>
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> Materi pembelajaran yang terstruktur dan lengkap</li>
+                    <li><i class="fas fa-check"></i> Kuis interaktif</li>
+                    <li><i class="fas fa-check"></i> Antarmuka yang menarik dan responsif</li>
+                    <li><i class="fas fa-check"></i> Pembahasan soal yang detail dan mudah dipahami</li>
+                    <li><i class="fas fa-check"></i> Akses gratis untuk semua konten</li>
+                </ul>
+            </div>
+            
+            <!-- Tim Pengembang -->
+            <div class="about-card">
+                <h2><i class="fas fa-users"></i> Tim Pengembang</h2>
+                <br>
+                <p>Web ini dikembangkan oleh Kelompok 6 Tim kami terdiri dari:</p>
+                
+                <div class="team-section">
+                    <div class="team-member">
+                        <h3>MUHAMMAD AWALLUDIN</h3>
+                        <p>Web Developer</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <h3>FAIZ FATANSA</h3>
+                        <p>Content Developer</p>
+                    </div>
+                    
+                    <div class="team-member">
+                        <h3>ADRISTI MILATI AZIZAH</h3>
+                        <p>Content Developer</p>
+                    </div>
+                    <div class="team-member">
+                        <h3>ABI BAEHAQQI</h3>
+                        <p>Content Developer</p>
+                    </div>
+                </div>
+            </div>
+            
+        
+        <button onclick="window.location.href='main.html'">Kembali ke Beranda</button>
+    </div>
+
+    <script src="javascript/tentang.js"></script>
+</body>
+</html>

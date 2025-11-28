@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materi Kalkulus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: white;
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, #ddd, transparent),
+                radial-gradient(1px 1px at 200px 90px, #fff, transparent),
+                radial-gradient(2px 2px at 240px 50px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 280px 10px, #eee, transparent),
+                radial-gradient(1px 1px at 320px 70px, #fff, transparent),
+                radial-gradient(2px 2px at 360px 40px, rgba(255,255,255,0.9), transparent);
+            background-repeat: repeat;
+            background-size: 400px 200px;
+            animation: sparkle 20s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes sparkle {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-200px); }
+        }
+
+        /* particle styles */
+        .particle {
+            position: fixed; 
+            pointer-events: none;
+            z-index: 2;
+            will-change: transform; 
+        }
+
+        .orb {
+            position: fixed; 
+            pointer-events: none;
+            z-index: 2;
+            will-change: transform;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem 1.5rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+            flex-shrink: 0;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #fffbe0;
+            font-size: 1.8rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin-bottom: 0.8rem;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.9rem 1.2rem;
+            color: #eee;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .sidebar a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            background: rgba(102, 126, 234, 0.3);
+            color: #fff;
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .sidebar i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main content */
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            position: relative;
+            z-index: 1;
+            -webkit-overflow-scrolling: touch;
+            overflow-x: hidden;
+            transform: translateZ(0);
+        }
+
+        .materi {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .materi.active {
+            display: block;
+        }
+
+        .materi h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #fffbe0;
+            background: linear-gradient(45deg, #fff, #667eea);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .materi p {
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+            color: #e0e0e0;
+        }
+
+        .materi ul, .materi ol {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .materi li {
+            margin-bottom: 0.8rem;
+            color: #e0e0e0;
+        }
+
+        .materi strong {
+            color: #fffbe0;
+        }
+
+        .materi img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-card h3 {
+            color: #fffbe0;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        /* Example Box */
+        .example {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #764ba2;
+        }
+
+        .example h4 {
+            color: #fffbe0;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        /* Back button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2.5rem;
+            position: relative;
+            left: -10px; 
+            width: calc(100% + 10px); 
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(102, 126, 234, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 600;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 1.5rem;
+            }
+
+            .sidebar ul {
+                display: flex;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+            }
+
+            .sidebar li {
+                margin-right: 1rem;
+                flex-shrink: 0;
+            }
+            
+            .sidebar a {
+                white-space: nowrap;
+            }
+            
+            .materi h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .nav-buttons {
+                left: -5px;
+                width: calc(100% + 5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Daftar Materi</h2>
+        <ul>
+            <li><a href="#" class="active" data-target="sistem-bilangan">
+                <i class="fas fa-calculator"></i> Sistem Bilangan
+            </a></li>
+            <li><a href="#" data-target="pertidaksamaan">
+                <i class="fas fa-less-than-equal"></i> Pertidaksamaan
+            </a></li>
+            <li><a href="#" data-target="fungsi">
+                <i class="fas fa-project-diagram"></i> Fungsi
+            </a></li>
+            <li><a href="#" data-target="limit">
+                <i class="fas fa-infinity"></i> Limit
+            </a></li>
+            <li><a href="#" data-target="turunan">
+                <i class="fas fa-chart-line"></i> Turunan
+            </a></li>
+            <li><a href="#" data-target="integral">
+                <i class="fas fa-shapes"></i> Integral
+            </a></li>
+        </ul>
+    </div>
+
+        <!-- Main content -->
+    <div class="main-content">
+        <a href="main.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+        </a>
+
+        <!-- Materi: Sistem Bilangan -->
+        <div id="sistem-bilangan" class="materi active">
+            <h1>Sistem Bilangan</h1>
+            <p>Sistem bilangan dalam kalkulus adalah hierarki atau perluasan dari himpunan bilangan yang memungkinkan kita melakukan operasi matematika yang lebih kompleks, terutama limit, turunan, dan integral. Kalkulus membutuhkan sistem bilangan yang "lengkap" tanpa celah, yang dalam matematika disebut bilangan real.</p>
+            <p>Bayangkan kalkulus sebagai game RPG epik! Nah, sistem bilangan adalah hero dan equipment yang bakal bikin karaktermu jadi overpowered!</p>
+            <div class="content-card">
+                <h3>Jenis-Jenis Bilangan</h3>
+                        <h4>1. Bilangan Asli (ℕ)</h4>
+                        <p>Bilangan untuk menghitung: 1, 2, 3, 4, ...</p>
+                        <p><strong>Contoh:</strong> Jumlah apel, jumlah siswa</p>
+                        <p>---------------------------------------------------------------------------------------------------------</p>
+                        <h4>2. Bilangan Bulat (ℤ)</h4>
+                        <p>Bilangan asli + nol + bilangan negatif: ..., -3, -2, -1, 0, 1, 2, 3, ...</p>
+                        <p><strong>Contoh:</strong> Suhu (-5°C), saldo bank (-Rp 50.000)</p>
+                        <p>---------------------------------------------------------------------------------------------------------</p>
+                        <h4>3. Bilangan Rasional (ℚ)</h4>
+                        <p>Bilangan yang bisa ditulis sebagai pecahan a/b, dimana a dan b bilangan bulat, b ≠ 0</p>
+                        <p><strong>Contoh:</strong> ½, ¾, 0.25, 0.333...</p>
+                        <p>---------------------------------------------------------------------------------------------------------</p>
+                        <h4>4. Bilangan Irasional</h4>
+                        <p>Bilangan yang TIDAK bisa ditulis sebagai pecahan</p>
+                        <p><strong>Contoh:</strong> π (pi), √2, e (bilangan Euler)</p>
+                        <p>---------------------------------------------------------------------------------------------------------</p>
+                        <h4>5. Bilangan Real (ℝ)</h4>
+                        <p>Gabungan bilangan rasional + irasional = semua bilangan di garis bilangan</p>
+                        <p><strong>Ini adalah "homebase" kalkulus!</strong></p>
+                        <p></p>
+            </div>
+
+
+            </div>
+            
+            <div class="example">
+                <h3>Mengapa Kalkulus Butuh Bilangan Real?</h3>
+                <br>
+                <p>Kalkulus bekerja dengan konsep limit - mendekati nilai tertentu sedekat mungkin. Bayangkan kita ingin menghitung kemiringan garis di titik tertentu:</p>
+                <br>
+                <p>Kita ambil titik yang semakin dekat... semakin dekat... tapi tidak pernah benar-benar sama!</p>
+                <p>Hanya dengan bilangan real (yang tidak ada celahnya) konsep ini bisa bekerja dengan sempurna!</p>
+            </div>
+            
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi, explicabo.</p>
+            
+            <div class="nav-buttons">
+                <a href="#" class="nav-btn prev-btn" style="visibility: hidden;">
+                    <i class="fas fa-arrow-left"></i> Sebelumnya
+                </a>
+                <a href="#" class="nav-btn next-btn" data-next="pertidaksamaan">
+                    Selanjutnya <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Materi: Pertidaksamaan -->
+        <div id="pertidaksamaan" class="materi">
+            <h1>Pertidaksamaan</h1>
+            <p>Pertidaksamaan adalah pernyataan matematis yang membandingkan dua nilai dengan menggunakan tanda ketidaksamaan, seperti <, >, ≤, atau ≥.</p>
+            
+            <div class="content-card">
+                <h3>Sifat-Sifat Pertidaksamaan</h3>
+                <ul>
+                    <li>Jika a > b dan b > c, maka a > c (sifat transitif)</li>
+                    <li>Jika a > b, maka a + c > b + c</li>
+                    <li>Jika a > b dan c > 0, maka ac > bc</li>
+                    <li>Jika a > b dan c < 0, maka ac < bc (tanda berbalik)</li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <h4>Contoh: x + 3 > 7</h4>
+                <p>Penyelesaian: x + 3 > 7 → x > 7 - 3 → x > 4</p>
+                <p>Jadi, himpunan penyelesaiannya adalah {x | x > 4}</p>
+            </div>
+            
+            <p>Pertidaksamaan dapat diselesaikan dengan berbagai metode, seperti menambahkan atau mengurangkan kedua sisi dengan bilangan yang sama, atau mengalikan/membagi dengan bilangan positif (jika bilangan negatif, tanda berbalik).</p>
+            
+            <div class="nav-buttons">
+                <a href="#" class="nav-btn prev-btn" data-prev="sistem-bilangan">
+                    <i class="fas fa-arrow-left"></i> Sebelumnya
+                </a>
+                <a href="#" class="nav-btn next-btn" data-next="fungsi">
+                    Selanjutnya <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Materi: Fungsi -->
+        <div id="fungsi" class="materi">
+            <h1>Fungsi</h1>
+            <p>Fungsi adalah hubungan antara dua himpunan, di mana setiap elemen di himpunan pertama (domain) dipetakan ke tepat satu elemen di himpunan kedua (kodomain).</p>
+            
+            <div class="content-card">
+                <h3>Jenis-Jenis Fungsi</h3>
+                <ul>
+                    <li><strong>Fungsi Linear</strong>: f(x) = ax + b</li>
+                    <li><strong>Fungsi Kuadrat</strong>: f(x) = ax² + bx + c</li>
+                    <li><strong>Fungsi Eksponensial</strong>: f(x) = a^x</li>
+                    <li><strong>Fungsi Logaritma</strong>: f(x) = logₐ(x)</li>
+                    <li><strong>Fungsi Trigonometri</strong>: sin(x), cos(x), tan(x)</li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <h4>Contoh: f(x) = x²</h4>
+                <p>Domain: semua bilangan real</p>
+                <p>Kodomain: semua bilangan real non-negatif</p>
+                <p>f(2) = 4, f(-3) = 9, f(0) = 0</p>
+            </div>
+            
+            <p>Fungsi dapat direpresentasikan dalam bentuk rumus, grafik, atau tabel. Pemahaman tentang fungsi sangat penting dalam kalkulus karena turunan dan integral bekerja pada fungsi.</p>
+            
+            <div class="nav-buttons">
+                <a href="#" class="nav-btn prev-btn" data-prev="pertidaksamaan">
+                    <i class="fas fa-arrow-left"></i> Sebelumnya
+                </a>
+                <a href="#" class="nav-btn next-btn" data-next="limit">
+                    Selanjutnya <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Materi: Limit -->
+        <div id="limit" class="materi">
+            <h1>Limit</h1>
+            <p>Limit adalah nilai yang didekati oleh suatu fungsi ketika inputnya mendekati suatu titik. Konsep limit merupakan dasar dari kalkulus, terutama dalam definisi turunan dan integral.</p>
+            
+            <div class="content-card">
+                <h3>Sifat-Sifat Limit</h3>
+                <ul>
+                    <li>lim(x→a) [f(x) + g(x)] = lim(x→a) f(x) + lim(x→a) g(x)</li>
+                    <li>lim(x→a) [f(x) - g(x)] = lim(x→a) f(x) - lim(x→a) g(x)</li>
+                    <li>lim(x→a) [f(x) * g(x)] = lim(x→a) f(x) * lim(x→a) g(x)</li>
+                    <li>lim(x→a) [f(x) / g(x)] = lim(x→a) f(x) / lim(x→a) g(x), asalkan lim(x→a) g(x) ≠ 0</li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <h4>Contoh: lim(x→2) (x² - 4)/(x - 2)</h4>
+                <p>Penyelesaian: (x² - 4)/(x - 2) = (x-2)(x+2)/(x-2) = x+2, untuk x≠2</p>
+                <p>Jadi, lim(x→2) (x² - 4)/(x - 2) = lim(x→2) (x+2) = 4</p>
+            </div>
+            
+            <p>Limit membantu kita memahami perilaku fungsi di titik-titik yang tidak terdefinisi atau di tak hingga.</p>
+            
+            <div class="nav-buttons">
+                <a href="#" class="nav-btn prev-btn" data-prev="fungsi">
+                    <i class="fas fa-arrow-left"></i> Sebelumnya
+                </a>
+                <a href="#" class="nav-btn next-btn" data-next="turunan">
+                    Selanjutnya <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Materi: Turunan -->
+        <div id="turunan" class="materi">
+            <h1>Turunan</h1>
+            <p>Turunan mengukur bagaimana suatu fungsi berubah ketika inputnya berubah. Turunan dari suatu fungsi di suatu titik adalah kemiringan garis singgung grafik fungsi di titik tersebut.</p>
+            
+            <div class="content-card">
+                <h3>Aturan Diferensiasi</h3>
+                <ul>
+                    <li><strong>Aturan Pangkat</strong>: d/dx(xⁿ) = nxⁿ⁻¹</li>
+                    <li><strong>Aturan Konstanta</strong>: d/dx(c) = 0</li>
+                    <li><strong>Aturan Penjumlahan</strong>: d/dx[f(x) + g(x)] = f'(x) + g'(x)</li>
+                    <li><strong>Aturan Perkalian</strong>: d/dx[f(x)g(x)] = f'(x)g(x) + f(x)g'(x)</li>
+                    <li><strong>Aturan Pembagian</strong>: d/dx[f(x)/g(x)] = [f'(x)g(x) - f(x)g'(x)] / [g(x)]²</li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <h4>Contoh: Turunan dari f(x) = x²</h4>
+                <p>Menggunakan aturan pangkat: f'(x) = 2x²⁻¹ = 2x</p>
+                <p>Jadi, turunan dari f(x) = x² adalah f'(x) = 2x</p>
+            </div>
+            
+            <p>Turunan memiliki banyak aplikasi, seperti dalam mencari kecepatan sesaat, percepatan, dan optimasi.</p>
+            
+            <div class="nav-buttons">
+                <a href="#" class="nav-btn prev-btn" data-prev="limit">
+                    <i class="fas fa-arrow-left"></i> Sebelumnya
+                </a>
+                <a href="#" class="nav-btn next-btn" data-next="integral">
+                    Selanjutnya <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Materi: Integral -->
+        <div id="integral" class="materi">
+            <h1>Integral</h1>
+            <p>Integral adalah kebalikan dari turunan. Integral digunakan untuk menghitung luas di bawah kurva, volume, dan banyak lagi.</p>
+            
+            <div class="content-card">
+                <h3>Jenis-Jenis Integral</h3>
+                <ul>
+                    <li><strong>Integral Tak Tentu</strong>: ∫f(x) dx = F(x) + C, di mana F'(x) = f(x)</li>
+                    <li><strong>Integral Tentu</strong>: ∫[a,b] f(x) dx = F(b) - F(a)</li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <h4>Contoh: ∫(3x² + 2x) dx</h4>
+                <p>Penyelesaian: ∫(3x² + 2x) dx = x³ + x² + C</p>
+                <p>Contoh integral tentu: ∫[0,2] (3x² + 2x) dx = [x³ + x²] dari 0 sampai 2 = (8 + 4) - (0 + 0) = 12</p>
+            </div>
+            
+            <p>Integral memiliki aplikasi luas dalam fisika, teknik, ekonomi, dan banyak bidang lainnya untuk menghitung akumulasi perubahan.</p>
+            
+            <div class="nav-buttons">
+                <a href="#" class="nav-btn prev-btn" data-prev="turunan">
+                    <i class="fas fa-arrow-left"></i> Sebelumnya
+                </a>
+                <a href="#" class="nav-btn next-btn" style="visibility: hidden;">
+                    Selanjutnya <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+        <!-- ... -->
+        
+    </div>
+    
+    <script src="javascript/materi.js"></script>
+</body>
+</html>
