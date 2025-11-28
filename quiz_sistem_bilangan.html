@@ -508,6 +508,406 @@
         <p>&copy; 2025 Kalkulus - Website Belajar Kalkulus. All rights reserved.</p>
     </footer>
 
-    <script src="javascript/quiz_sistem_bilangan.js"></script>
+    <script>// Quiz Data - 10 Questions about Number Systems
+        const quizData = [
+            {
+                question: "Manakah dari berikut ini yang termasuk bilangan rasional?",
+                options: [
+                    "√2",
+                    "π (pi)",
+                    "0.75",
+                    "e (bilangan Euler)"
+                ],
+                correct: 2,
+                explanation: "Bilangan rasional adalah bilangan yang dapat dinyatakan sebagai pecahan a/b, di mana a dan b adalah bilangan bulat dan b ≠ 0. 0.75 dapat dinyatakan sebagai 3/4, sehingga termasuk bilangan rasional. √2, π, dan e adalah bilangan irasional karena tidak dapat dinyatakan sebagai pecahan."
+            },
+            {
+                question: "Himpunan bilangan apa yang berisi semua bilangan rasional dan irasional?",
+                options: [
+                    "Bilangan Bulat",
+                    "Bilangan Real",
+                    "Bilangan Kompleks",
+                    "Bilangan Asli"
+                ],
+                correct: 1,
+                explanation: "Bilangan Real adalah himpunan yang mencakup semua bilangan rasional dan irasional. Bilangan bulat hanya mencakup bilangan bulat positif, negatif, dan nol. Bilangan kompleks mencakup bilangan real dan imajiner. Bilangan asli hanya mencakup bilangan bulat positif."
+            },
+            {
+                question: "Manakah dari berikut ini yang merupakan contoh bilangan irasional?",
+                options: [
+                    "1/3",
+                    "0.5",
+                    "√9",
+                    "√3"
+                ],
+                correct: 3,
+                explanation: "√3 adalah bilangan irasional karena tidak dapat dinyatakan sebagai pecahan. 1/3 dan 0.5 adalah bilangan rasional. √9 = 3, yang merupakan bilangan bulat dan juga rasional."
+            },
+            {
+                question: "Berapakah hasil dari 2/3 + 1/6?",
+                options: [
+                    "1/2",
+                    "2/9",
+                    "5/6",
+                    "3/9"
+                ],
+                correct: 2,
+                explanation: "Untuk menjumlahkan pecahan, kita perlu menyamakan penyebutnya. 2/3 = 4/6, jadi 4/6 + 1/6 = 5/6."
+            },
+            {
+                question: "Manakah dari berikut ini yang merupakan bilangan prima?",
+                options: [
+                    "1",
+                    "9",
+                    "15",
+                    "17"
+                ],
+                correct: 3,
+                explanation: "Bilangan prima adalah bilangan yang hanya memiliki dua faktor, yaitu 1 dan bilangan itu sendiri. 17 hanya dapat dibagi oleh 1 dan 17, sehingga merupakan bilangan prima. 1 bukan bilangan prima karena hanya memiliki satu faktor. 9 dan 15 memiliki lebih dari dua faktor."
+            },
+            {
+                question: "Berapakah FPB (Faktor Persekutuan Terbesar) dari 24 dan 36?",
+                options: [
+                    "6",
+                    "8",
+                    "12",
+                    "18"
+                ],
+                correct: 2,
+                explanation: "Faktor dari 24: 1, 2, 3, 4, 6, 8, 12, 24. Faktor dari 36: 1, 2, 3, 4, 6, 9, 12, 18, 36. Faktor persekutuan terbesar adalah 12."
+            },
+            {
+                question: "Manakah dari berikut ini yang merupakan contoh bilangan bulat?",
+                options: [
+                    "-3.5",
+                    "2/3",
+                    "√4",
+                    "0.75"
+                ],
+                correct: 2,
+                explanation: "√4 = 2, yang merupakan bilangan bulat. -3.5 adalah bilangan desimal, 2/3 adalah pecahan, dan 0.75 adalah bilangan desimal, yang semuanya bukan bilangan bulat."
+            },
+            {
+                question: "Berapakah KPK (Kelipatan Persekutuan Terkecil) dari 4 dan 6?",
+                options: [
+                    "12",
+                    "18",
+                    "24",
+                    "36"
+                ],
+                correct: 0,
+                explanation: "Kelipatan 4: 4, 8, 12, 16, 20, 24,... Kelipatan 6: 6, 12, 18, 24, 30,... Kelipatan persekutuan terkecil adalah 12."
+            },
+            {
+                question: "Manakah dari berikut ini yang merupakan bilangan komposit?",
+                options: [
+                    "7",
+                    "11",
+                    "13",
+                    "15"
+                ],
+                correct: 3,
+                explanation: "Bilangan komposit adalah bilangan yang memiliki lebih dari dua faktor. 15 memiliki faktor 1, 3, 5, dan 15, sehingga merupakan bilangan komposit. 7, 11, dan 13 adalah bilangan prima karena hanya memiliki dua faktor."
+            },
+            {
+                question: "Berapakah hasil dari 3/4 × 2/5?",
+                options: [
+                    "5/9",
+                    "6/20",
+                    "3/10",
+                    "1/2"
+                ],
+                correct: 2,
+                explanation: "Untuk mengalikan pecahan, kita kalikan pembilang dengan pembilang dan penyebut dengan penyebut. 3/4 × 2/5 = (3×2)/(4×5) = 6/20 = 3/10 setelah disederhanakan."
+            }
+        ];
+
+        // Quiz State
+        let currentQuestion = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let quizCompleted = false;
+
+        // DOM Elements
+        const quizContent = document.getElementById('quiz-content');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const backBtn = document.getElementById('back-btn'); // NEW: Back button
+        const results = document.getElementById('results');
+        const currentQuestionEl = document.getElementById('current-question');
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercent = document.getElementById('progress-percent');
+        const finalScore = document.getElementById('final-score');
+        const scoreText = document.getElementById('score-text');
+        const questionsResults = document.getElementById('questions-results');
+        const retryBtn = document.getElementById('retry-btn');
+
+        // Initialize Quiz
+        function initQuiz() {
+            showQuestion();
+            updateProgress();
+            
+            // Add event listeners
+            nextBtn.addEventListener('click', nextQuestion);
+            prevBtn.addEventListener('click', prevQuestion);
+            submitBtn.addEventListener('click', submitQuiz);
+            retryBtn.addEventListener('click', retryQuiz);
+            backBtn.addEventListener('click', goBackToMenu); // NEW: Back button event listener
+        }
+
+        // Show Current Question
+        function showQuestion() {
+            const question = quizData[currentQuestion];
+            
+            let optionsHTML = '';
+            question.options.forEach((option, index) => {
+                const isSelected = userAnswers[currentQuestion] === index;
+                optionsHTML += `
+                    <div class="option ${isSelected ? 'selected' : ''}" data-index="${index}">
+                        <div class="option-marker">${String.fromCharCode(65 + index)}</div>
+                        <div class="option-text">${option}</div>
+                    </div>
+                `;
+            });
+            
+            quizContent.innerHTML = `
+                <div class="question">
+                    <div class="question-number">Soal ${currentQuestion + 1}</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">${optionsHTML}</div>
+                </div>
+            `;
+            
+            // Add event listeners to options - FIXED
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent event bubbling
+                    selectOption(parseInt(this.dataset.index));
+                });
+            });
+            
+            // Update button states
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === quizData.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'inline-flex';
+            } else {
+                nextBtn.style.display = 'inline-flex';
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        // Select an Option
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            showQuestion();
+        }
+
+        // Update Progress
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressPercent.textContent = `${Math.round(progress)}%`;
+            currentQuestionEl.textContent = currentQuestion + 1;
+        }
+
+        // Navigate to Next Question
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                showQuestion();
+                updateProgress();
+            }
+        }
+
+        // Navigate to Previous Question
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+                updateProgress();
+            }
+        }
+
+        // NEW: Go Back to Menu
+        function goBackToMenu() {
+            // Confirmation dialog before leaving
+            const confirmLeave = confirm("Apakah Anda yakin ingin kembali ke menu? Progress Anda akan hilang.");
+            if (confirmLeave) {
+                window.location.href = 'mainquiz.html';
+            }
+        }
+
+        // Submit Quiz
+        function submitQuiz() {
+            quizCompleted = true;
+            
+            // Calculate score
+            let correctAnswers = 0;
+            quizData.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    correctAnswers++;
+                }
+            });
+            
+            // Display results
+            finalScore.textContent = `${correctAnswers}/${quizData.length}`;
+            scoreText.textContent = `Anda menjawab ${correctAnswers} dari ${quizData.length} soal dengan benar`;
+            
+            // Display question results
+            let resultsHTML = '';
+            quizData.forEach((question, index) => {
+                const userAnswer = userAnswers[index];
+                const isCorrect = userAnswer === question.correct;
+                
+                resultsHTML += `
+                    <div class="question-result ${isCorrect ? 'correct' : 'incorrect'}">
+                        <div class="question-result-header">
+                            <h4>Soal ${index + 1}</h4>
+                            <div class="question-result-status">
+                                ${isCorrect ? 'Benar' : 'Salah'}
+                            </div>
+                        </div>
+                        <div class="question-text">${question.question}</div>
+                        <div class="options">
+                            ${question.options.map((option, optIndex) => {
+                                let optionClass = '';
+                                if (optIndex === question.correct) {
+                                    optionClass = 'correct';
+                                } else if (optIndex === userAnswer && !isCorrect) {
+                                    optionClass = 'incorrect';
+                                }
+                                
+                                return `
+                                    <div class="option ${optionClass}">
+                                        <div class="option-marker">${String.fromCharCode(65 + optIndex)}</div>
+                                        <div class="option-text">${option}</div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                        <div class="explanation-content">
+                            <strong>Pembahasan:</strong> ${question.explanation}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            questionsResults.innerHTML = resultsHTML;
+            
+            // Show results section
+            results.style.display = 'block';
+            quizContent.style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            document.querySelector('.nav-buttons').style.display = 'none';
+        }
+
+        // Retry Quiz
+        function retryQuiz() {
+            currentQuestion = 0;
+            userAnswers = new Array(quizData.length).fill(null);
+            quizCompleted = false;
+            
+            // Reset UI
+            results.style.display = 'none';
+            quizContent.style.display = 'block';
+            document.querySelector('.progress-container').style.display = 'block';
+            document.querySelector('.nav-buttons').style.display = 'flex';
+            
+            showQuestion();
+            updateProgress();
+        }
+
+        // FIXED: Optimized particle system
+        function createBackgroundParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random properties
+                const size = Math.random() * 2 + 1;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}vw`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationName = 'float';
+                
+                container.appendChild(particle);
+            }
+        }
+
+        function createOptimizedOrbs() {
+            const orbCount = 3;
+            
+            for (let i = 0; i < orbCount; i++) {
+                const orb = document.createElement('div');
+                orb.className = 'orb';
+                
+                const size = Math.random() * 100 + 50;
+                const duration = Math.random() * 30 + 30;
+                const delay = Math.random() * 10;
+                const top = Math.random() * 100;
+                
+                orb.style.width = `${size}px`;
+                orb.style.height = `${size}px`;
+                orb.style.animationDuration = `${duration}s`;
+                orb.style.animationDelay = `${delay}s`;
+                orb.style.top = `${top}vh`;
+                orb.style.background = 'radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%)';
+                
+                document.getElementById('particles-container').appendChild(orb);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            createBackgroundParticles();
+            createOptimizedOrbs();
+        });
+
+        // Simple mouse move effect (optional, can be removed if still causing issues)
+        document.addEventListener('mousemove', (e) => {
+            // Only create 1-2 particles on mouse move
+            for (let i = 0; i < 10; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.width = (Math.random() * 2 + 1) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = 'rgba(255, 255, 255, 0.5)';
+                particle.style.borderRadius = '50%';
+                
+                const angle = Math.random() * 2 * Math.PI;
+                const radius = Math.random() * 15;
+                const x = e.clientX + Math.cos(angle) * radius;
+                const y = e.clientY + Math.sin(angle) * radius;
+                
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '15';
+                
+                document.body.appendChild(particle);
+                
+                particle.animate([
+                    { opacity: 1, transform: 'scale(1)' },
+                    { opacity: 0, transform: 'scale(0.5)' }
+                ], {
+                    duration: 800,
+                    easing: 'ease-out'
+                });
+                
+                setTimeout(() => particle.remove(), 800);
+            }
+        });</script>
 </body>
 </html>
