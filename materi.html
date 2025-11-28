@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -190,8 +190,8 @@
         .content-card {
             background: rgba(255, 255, 255, 0.08);
             border-radius: 12px;
-            padding: 1rem;
-            margin: 1rem 0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
             border-left: 4px solid #667eea;
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -207,12 +207,28 @@
             font-size: 1.4rem;
         }
 
+        .content-card h4 {
+            color: #fffbe0;
+            margin: 1rem 0 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .content-card p {
+            margin-bottom: 0.8rem;
+        }
+
+        .divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 1rem 0;
+        }
+
         /* Example Box */
         .example {
             background: rgba(102, 126, 234, 0.1);
             border-radius: 10px;
             padding: 1.5rem;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
             border-left: 4px solid #764ba2;
         }
 
@@ -247,9 +263,6 @@
             display: flex;
             justify-content: space-between;
             margin-top: 2.5rem;
-            position: relative;
-            left: -10px; 
-            width: calc(100% + 10px); 
         }
 
         .nav-btn {
@@ -307,11 +320,6 @@
             .main-content {
                 padding: 1rem;
             }
-            
-            .nav-buttons {
-                left: -5px;
-                width: calc(100% + 5px);
-            }
         }
     </style>
 </head>
@@ -341,7 +349,7 @@
         </ul>
     </div>
 
-        <!-- Main content -->
+    <!-- Main content -->
     <div class="main-content">
         <a href="index.html" class="back-button">
             <i class="fas fa-arrow-left"></i> Kembali ke Beranda
@@ -352,43 +360,45 @@
             <h1>Sistem Bilangan</h1>
             <p>Sistem bilangan dalam kalkulus adalah hierarki atau perluasan dari himpunan bilangan yang memungkinkan kita melakukan operasi matematika yang lebih kompleks, terutama limit, turunan, dan integral. Kalkulus membutuhkan sistem bilangan yang "lengkap" tanpa celah, yang dalam matematika disebut bilangan real.</p>
             <p>Bayangkan kalkulus sebagai game RPG epik! Nah, sistem bilangan adalah hero dan equipment yang bakal bikin karaktermu jadi overpowered!</p>
+            
             <div class="content-card">
                 <h3>Jenis-Jenis Bilangan</h3>
-                        <h4>1. Bilangan Asli (ℕ)</h4>
-                        <p>Bilangan untuk menghitung: 1, 2, 3, 4, ...</p>
-                        <p><strong>Contoh:</strong> Jumlah apel, jumlah siswa</p>
-                        <p>---------------------------------------------------------------------------------------------------------</p>
-                        <h4>2. Bilangan Bulat (ℤ)</h4>
-                        <p>Bilangan asli + nol + bilangan negatif: ..., -3, -2, -1, 0, 1, 2, 3, ...</p>
-                        <p><strong>Contoh:</strong> Suhu (-5°C), saldo bank (-Rp 50.000)</p>
-                        <p>---------------------------------------------------------------------------------------------------------</p>
-                        <h4>3. Bilangan Rasional (ℚ)</h4>
-                        <p>Bilangan yang bisa ditulis sebagai pecahan a/b, dimana a dan b bilangan bulat, b ≠ 0</p>
-                        <p><strong>Contoh:</strong> ½, ¾, 0.25, 0.333...</p>
-                        <p>---------------------------------------------------------------------------------------------------------</p>
-                        <h4>4. Bilangan Irasional</h4>
-                        <p>Bilangan yang TIDAK bisa ditulis sebagai pecahan</p>
-                        <p><strong>Contoh:</strong> π (pi), √2, e (bilangan Euler)</p>
-                        <p>---------------------------------------------------------------------------------------------------------</p>
-                        <h4>5. Bilangan Real (ℝ)</h4>
-                        <p>Gabungan bilangan rasional + irasional = semua bilangan di garis bilangan</p>
-                        <p><strong>Ini adalah "homebase" kalkulus!</strong></p>
-                        <p></p>
+                
+                <h4>1. Bilangan Asli (ℕ)</h4>
+                <p>Bilangan untuk menghitung: 1, 2, 3, 4, ...</p>
+                <p><strong>Contoh:</strong> Jumlah apel, jumlah siswa</p>
+                
+                <div class="divider"></div>
+                
+                <h4>2. Bilangan Bulat (ℤ)</h4>
+                <p>Bilangan asli + nol + bilangan negatif: ..., -3, -2, -1, 0, 1, 2, 3, ...</p>
+                <p><strong>Contoh:</strong> Suhu (-5°C), saldo bank (-Rp 50.000)</p>
+                
+                <div class="divider"></div>
+                
+                <h4>3. Bilangan Rasional (ℚ)</h4>
+                <p>Bilangan yang bisa ditulis sebagai pecahan a/b, dimana a dan b bilangan bulat, b ≠ 0</p>
+                <p><strong>Contoh:</strong> ½, ¾, 0.25, 0.333...</p>
+                
+                <div class="divider"></div>
+                
+                <h4>4. Bilangan Irasional</h4>
+                <p>Bilangan yang TIDAK bisa ditulis sebagai pecahan</p>
+                <p><strong>Contoh:</strong> π (pi), √2, e (bilangan Euler)</p>
+                
+                <div class="divider"></div>
+                
+                <h4>5. Bilangan Real (ℝ)</h4>
+                <p>Gabungan bilangan rasional + irasional = semua bilangan di garis bilangan</p>
+                <p><strong>Ini adalah "homebase" kalkulus!</strong></p>
             </div>
 
-
-            </div>
-            
             <div class="example">
                 <h3>Mengapa Kalkulus Butuh Bilangan Real?</h3>
-                <br>
                 <p>Kalkulus bekerja dengan konsep limit - mendekati nilai tertentu sedekat mungkin. Bayangkan kita ingin menghitung kemiringan garis di titik tertentu:</p>
-                <br>
                 <p>Kita ambil titik yang semakin dekat... semakin dekat... tapi tidak pernah benar-benar sama!</p>
                 <p>Hanya dengan bilangan real (yang tidak ada celahnya) konsep ini bisa bekerja dengan sempurna!</p>
             </div>
-            
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sequi, explicabo.</p>
             
             <div class="nav-buttons">
                 <a href="#" class="nav-btn prev-btn" style="visibility: hidden;">
@@ -566,24 +576,21 @@
             </div>
         </div>
     </div>
-        <!-- ... -->
-        
-    </div>
-    
-    <script>// JavaScript
+
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const links = document.querySelectorAll('.sidebar a');
             const materiItems = document.querySelectorAll('.materi');
             const nextButtons = document.querySelectorAll('.next-btn');
             const prevButtons = document.querySelectorAll('.prev-btn');
 
-            // fungsi materi berdasarkan ID
+            // Fungsi untuk mengaktifkan materi berdasarkan ID
             function activateMateri(targetId) {
-                // Hapus kelas active
+                // Hapus kelas active dari semua
                 links.forEach(l => l.classList.remove('active'));
                 materiItems.forEach(m => m.classList.remove('active'));
 
-                // kelas active ke link yang sesuai
+                // Tambah kelas active ke link yang sesuai
                 const activeLink = document.querySelector(`.sidebar a[data-target="${targetId}"]`);
                 if (activeLink) {
                     activeLink.classList.add('active');
@@ -630,161 +637,6 @@
                 });
             });
         });
-
-        // Optimized particle system
-        let animationFrameId;
-        let isTabActive = true;
-
-        // simple background particles
-        function createBackgroundParticles() {
-            const particleCount = 10;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                // Random properties
-                const size = Math.random() * 2 + 1;
-                const left = Math.random() * 100;
-                const duration = Math.random() * 20 + 10;
-                const delay = Math.random() * 5;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${left}vw`;
-                particle.style.animationDuration = `${duration}s`;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.animationName = 'float';
-                
-                document.body.appendChild(particle);
-                
-                // Remove particle after animation
-                setTimeout(() => {
-                    if (particle.parentNode) {
-                        particle.parentNode.removeChild(particle);
-                    }
-                }, (duration + delay) * 1000);
-            }
-        }
-
-        // Create optimized orbs
-        function createOptimizedOrbs() {
-            const orbCount = 2;
-            
-            for (let i = 0; i < orbCount; i++) {
-                const orb = document.createElement('div');
-                orb.className = 'orb';
-                
-                const size = Math.random() * 100 + 50;
-                const duration = Math.random() * 30 + 30;
-                const delay = Math.random() * 10;
-                const top = Math.random() * 100;
-                
-                orb.style.width = `${size}px`;
-                orb.style.height = `${size}px`;
-                orb.style.animationDuration = `${duration}s`;
-                orb.style.animationDelay = `${delay}s`;
-                orb.style.top = `${top}vh`;
-                orb.style.background = 'radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%)';
-                orb.style.animation = `drift ${duration}s linear ${delay}s infinite`;
-                
-                document.body.appendChild(orb);
-                
-                // Remove orb after animation
-                setTimeout(() => {
-                    if (orb.parentNode) {
-                        orb.parentNode.removeChild(orb);
-                    }
-                }, (duration + delay) * 1000);
-            }
-        }
-
-        // Generate particles with controlled frequency
-        function startParticleSystem() {
-            // Initial particles
-            createBackgroundParticles();
-            createOptimizedOrbs();
-            
-            // Generate particles at controlled intervals
-            setInterval(() => {
-                if (isTabActive) {
-                    createBackgroundParticles();
-                }
-            }, 8000); // Reduced frequency
-            
-            setInterval(() => {
-                if (isTabActive) {
-                    createOptimizedOrbs();
-                }
-            }, 20000); // Reduced frequency
-        }
-
-        // Start the optimized particle system
-        startParticleSystem();
-
-        // Stop animation when page is not visible
-        document.addEventListener('visibilitychange', function() {
-            isTabActive = !document.hidden;
-        });
-
-        // Add CSS for animations
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes float {
-                0% { 
-                    transform: translateY(100vh) translateX(0) rotate(0deg);
-                    opacity: 0;
-                }
-                10% { opacity: 1; }
-                90% { opacity: 1; }
-                100% { 
-                    transform: translateY(-100vh) translateX(100px) rotate(360deg);
-                    opacity: 0;
-                }
-            }
-            
-            @keyframes drift {
-                0% { transform: translateX(-100px) translateY(0) scale(0.5); opacity: 0; }
-                10% { opacity: 0.3; }
-                50% { transform: translateX(50vw) translateY(-50px) scale(1); opacity: 0.5; }
-                90% { opacity: 0.3; }
-                100% { transform: translateX(100vw) translateY(0) scale(0.5); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // mouse move effect
-        document.addEventListener('mousemove', (e) => {
-            for (let i = 0; i < 10; i++) {
-                const particle = document.createElement('div');
-                particle.style.position = 'fixed';
-                particle.style.width = (Math.random() * 2 + 1) + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.background = 'rgba(255, 255, 255, 0.5)';
-                particle.style.borderRadius = '50%';
-                
-                const angle = Math.random() * 2 * Math.PI;
-                const radius = Math.random() * 15;
-                const x = e.clientX + Math.cos(angle) * radius;
-                const y = e.clientY + Math.sin(angle) * radius;
-                
-                particle.style.left = x + 'px';
-                particle.style.top = y + 'px';
-                particle.style.pointerEvents = 'none';
-                particle.style.zIndex = '15';
-                
-                document.body.appendChild(particle);
-                
-                particle.animate([
-                    { opacity: 1, transform: 'scale(1)' },
-                    { opacity: 0, transform: 'scale(0.5)' }
-                ], {
-                    duration: 800,
-                    easing: 'ease-out'
-                });
-                
-                setTimeout(() => particle.remove(), 800);
-            }
-        });</script>
+    </script>
 </body>
 </html>
